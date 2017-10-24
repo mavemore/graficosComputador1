@@ -62,7 +62,9 @@ function cambiarFigura(){
 }
 
 function cambiarColor(){
-    var color = document.getElementById("selectColor").value;
+    //var color = document.getElementById("selectColor").value;
+    var color = document.getElementById("inputColor").value;
+    /*
     if (color=='verde'){
         object.material.color.setHex( 0x33cc33 );
     }else if (color=='azul'){
@@ -70,6 +72,13 @@ function cambiarColor(){
     }else if (color=='rojo'){
         object.material.color.setHex( 0xff3300 );
     }
+    */
+    //console.log(color);
+    color = color.substr(1,6);
+    //console.log(color);
+    color = "0x" + color;
+    //console.log(color);
+    object.material.color.setHex( color );
     renderer.render(scene, camera);
 }
 
