@@ -1,0 +1,13 @@
+------------------------------------------------23/10/2017------------------------------------------------------
+
+***************
+*   mavemore  *
+***************
+-Creación de repositorio
+- Programa inicial -> Se puede seleccionar entre cono, esfera y cubo
+                   -> Se puede un color entre rojo, azul y verde
+
+***************
+* jealvarado  *
+***************
+-Se agregó input para escoger cualquier color y cambiarselo a la figura.
