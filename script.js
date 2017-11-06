@@ -18,6 +18,15 @@ renderer.setSize( width, height);
 //anade escena a canvas
 document.body.appendChild( renderer.domElement );
 
+//ajustar segun tam pantalla
+window.addEventListener('resize', function(){
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+})
+
 //crear objetos
 var cubo = new THREE.CubeGeometry( 1,1,1);
 var esfera = new THREE.SphereGeometry(0.5,32,32);
@@ -47,7 +56,17 @@ pointLight.position.set(0, 300, 200);
  
 scene.add(pointLight);
 
+//añadir piso
+var meshFloor = new THREE.Mesh(
+	new THREE.PlaneGeometry(10,10, 10,10),
+	new THREE.MeshBasicMaterial({color:0xffffff, wireframe: true})
+);
+meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
+scene.add(meshFloor);
+
+
 renderer.render(scene, camera);
+
 
 function cambiarFigura(){
 	var figura = document.getElementById("selectFigura").value;
@@ -81,5 +100,3 @@ function cambiarColor(){
     object.material.color.setHex( color );
     renderer.render(scene, camera);
 }
-
- 
