@@ -5,32 +5,79 @@
 		<title>Graficos por Computador 1</title>
 		<style>
 			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+			canvas { max-width: 80%; 
+					 height: 100%;
+					 float: right;
+					}
+			#menu { max-width: 20%;
+					float: left; 
+				  }
+			.in{
+				width: 50px;
+			}
 		</style>
 		<script src="three.min.js"></script>
 	</head>
 	<body>
-		<div>
-			<label>Figura: </label>
-			<select id="selectFigura" onchange="cambiarFigura()">
-				<option value="cubo">Cubo</option>
-				<option value="esfera">Esfera</option>
-				<option value="cono">Cono</option>
-			</select>
-		</div>
-		<!--
-		<div>
-			<label>Color: </label>
-			<select id="selectColor" onchange="cambiarColor()">
-				<option value="verde">Verde</option>
-				<option value="rojo">Rojo</option>
-				<option value="azul">Azul</option>
-			</select>
-		</div>
-		-->
-		<div>
-			<label>Color: </label>
-			<input type="color" name="inputColor" id="inputColor" value="#33cc33" onchange="cambiarColor()">
+		<div id="menu">
+			<h1>MENU</h1>
+			<div>
+				<label>Figura: </label>
+				<select id="selectFigura" onchange="cambiarFigura()">
+					<option value="cubo">Cubo</option>
+					<option value="esfera">Esfera</option>
+					<option value="piramide">Pirámide</option>
+					<option value="toroide">Toroide</option>
+					<option value="cilindro">Cilindro</option>
+					<option value="prisma">Prisma</option>
+				</select>
+			</div>
+			<div>
+				<label>Color: </label>
+				<input type="color" name="inputColor" id="inputColor" value="#33cc33" onchange="cambiarColor()">
+			</div>
+			<div> 
+				<label>Luces: </label>
+				<input type="checkbox" id="luz1" value="luz1" checked="" onclick="estadoLRoja()"> Luz Roja
+				<input type="checkbox" id="luz2" value="luz2" checked="" onclick="estadoLAzul()"> Luz Azul
+				<input type="checkbox" id="luz3" value="luz3" checked="" onclick="estadoLVerde()"> Luz Verde
+			</div>
+			<div>
+				<label>Trasladar Objeto: </label>
+				<br>
+  				<input class="in" type="number" id="traslacionX" placeholder="x">
+  				<input class="in" type="number" id="traslacionY" placeholder="y">
+  				<input class="in" type="number" id="traslacionZ" placeholder="z">
+  				<button onclick="trasladarObjeto()">Trasladar</button>
+  				<button onclick="restaurarObjeto()">Restaurar</button>
+			</div>
+			<div>
+				<label>Rotar Objeto: </label>
+				<br>
+  				<input class="in" type="number" id="rotacionX" placeholder="x">
+  				<input class="in" type="number" id="rotacionY" placeholder="y">
+  				<input class="in" type="number" id="rotacionZ" placeholder="z">
+  				<button onclick="rotarObjeto()">Rotar</button>
+  				<button onclick="restaurarRotacionObjeto()">Restaurar</button>
+			</div>
+			<div>
+				<label>Trasladar Cámara: </label>
+				<br>
+  				<input class="in" type="number" id="traslacioncX" placeholder="x">
+  				<input class="in" type="number" id="traslacioncY" placeholder="y">
+  				<input class="in" type="number" id="traslacioncZ" placeholder="z">
+  				<button onclick="trasladarCamara()">Trasladar</button>
+  				<button onclick="restaurarCamara()">Restaurar</button>
+			</div>
+			<div>
+				<label>Rotar Cámara: </label>
+				<br>
+  				<input class="in" type="number" id="rotacioncX" placeholder="x">
+  				<input class="in" type="number" id="rotacioncY" placeholder="y">
+  				<input class="in" type="number" id="rotacioncZ" placeholder="z">
+  				<button onclick="rotarCamara()">Rotar</button>
+  				<button onclick="restaurarRotacionCamara()">Restaurar</button>
+			</div>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.js"></script>
 		<script src="three.js"></script>
