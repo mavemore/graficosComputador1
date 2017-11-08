@@ -78,9 +78,19 @@
   				<button onclick="rotarCamara()">Rotar</button>
   				<button onclick="restaurarRotacionCamara()">Restaurar</button>
 			</div>
+			<div>
+				<label>Escalar objeto: </label>
+				<br>
+  				<input class="in" type="number" id="scaleX" placeholder="x" value="1" min="1">
+  				<input class="in" type="number" id="scaleY" placeholder="y" value="1" min="1">
+  				<input class="in" type="number" id="scaleZ" placeholder="z" value="1" min="1">
+  				<button onclick="tamObjeto()">Escalar</button>
+  				<button onclick="restaurarObjeto()">Restaurar</button>
+			</div>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.js"></script>
 		<script src="three.js"></script>
+		<script src="OrbitControls.js"></script>
 		<script src="script.js"></script>
 	</body>
 </html>

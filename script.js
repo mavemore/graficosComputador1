@@ -1,6 +1,9 @@
 var width = window.innerWidth*0.8;
 var height =  window.innerHeight;
 
+var keyboard = {};
+var player = { height:1.8, speed:0.2, turnSpeed:Math.PI*0.02 };
+
 //crea la escena
 var scene = new THREE.Scene();
 //crea la camara
@@ -26,6 +29,8 @@ window.addEventListener('resize', function(){
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 })
+
+controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 //crear objetos
 var cubo = new THREE.CubeGeometry( 1,1,1);
@@ -93,6 +98,8 @@ var prisma = new PrismGeometry( [ A, B, C ], 1 );
 var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
 var object = new THREE.Mesh( cubo, material );
 object.rotation.y = Math.PI * 45/180;
+//object.position.y += 1; 
+//object.scale.x = 3;
 scene.add(object);
 
 camera.position.y = 3;
@@ -138,8 +145,8 @@ var meshFloor = new THREE.Mesh(
 meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
 scene.add(meshFloor);
 
-
-renderer.render(scene, camera);
+animate();
+//renderer.render(scene, camera);
 
 
 function cambiarFigura(){
@@ -275,3 +282,69 @@ function restaurarRotacionCamara(){
 	camera.lookAt(object.position);
 	renderer.render(scene, camera);
 }
+
+function tamObjeto(){
+	tamX = document.getElementById("scaleX").value;
+	tamY = document.getElementById("scaleY").value;
+	tamZ = document.getElementById("scaleZ").value;
+	object.scale.x =tamX;
+	object.scale.y =tamY;
+	object.scale.z =tamZ;
+	renderer.render(scene, camera);
+}
+
+function restaurarObjeto(){
+	
+	object.scale.x =1;
+	object.scale.y =1;
+	object.scale.z =1;
+
+	renderer.render(scene, camera);
+}
+
+function animate(){
+	requestAnimationFrame(animate);
+	
+	// Keyboard movement inputs
+	if(keyboard[87]){ // W key
+		camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
+		camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
+	}
+	if(keyboard[83]){ // S key
+		camera.position.x += Math.sin(camera.rotation.y) * player.speed;
+		camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
+	}
+	if(keyboard[65]){ // A key
+		// Redirect motion by 90 degrees
+		camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
+		camera.position.z += -Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
+	}
+	if(keyboard[68]){ // D key
+		camera.position.x += Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
+		camera.position.z += -Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
+	}
+	
+	// Keyboard turn inputs
+	if(keyboard[37]){ // left arrow key
+		camera.rotation.y -= player.turnSpeed;
+	}
+	if(keyboard[39]){ // right arrow key
+		camera.rotation.y += player.turnSpeed;
+	}
+	
+	renderer.render(scene, camera);
+}
+
+
+function keyDown(event){
+	keyboard[event.keyCode] = true;
+}
+
+function keyUp(event){
+	keyboard[event.keyCode] = false;
+}
+
+window.addEventListener('keydown', keyDown);
+window.addEventListener('keyup', keyUp);
+
+window.onload = init;
