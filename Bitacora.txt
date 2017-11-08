@@ -23,3 +23,18 @@
 - Trasladar cámara.
 - Comienzo de rotar cámara (incluir la acción en el menú, crear función)
 - Se añadieron las figuras pirámide, prisma, prisma de aro, cilindro.
+
+------------------------------------------------08/11/2017------------------------------------------------------
+
+***************
+*   odmoreno  *
+***************
+- Rotación y traslación de cámara por medio del mouse
+- escalamiento de objetos por interacción del menú
+- piso de la  escena
+
+***************
+*   mavemore  *
+***************
+- Arreglos en el menú
+

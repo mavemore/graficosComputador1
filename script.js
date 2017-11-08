@@ -293,7 +293,7 @@ function tamObjeto(){
 	renderer.render(scene, camera);
 }
 
-function restaurarObjeto(){
+function restaurarTamanioObjeto(){
 	
 	object.scale.x =1;
 	object.scale.y =1;
@@ -347,4 +347,4 @@ function keyUp(event){
 window.addEventListener('keydown', keyDown);
 window.addEventListener('keyup', keyUp);
 
-window.onload = init;
+//window.onload = init;
