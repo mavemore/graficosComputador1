@@ -7,6 +7,7 @@
 - Se puede rotar el objeto.
 - Se puede trasladar la cámara.
 - Se puede apagar y prender las luces.
+- Se puede rotar y trasladar la cámara.
 
 ## Utilizando
 - Three.js 

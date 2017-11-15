@@ -38,3 +38,11 @@
 ***************
 - Arreglos en el menú
 
+------------------------------------------------14/11/2017------------------------------------------------------
+
+***************
+*   mavemore  *
+***************
+- Cambio de opciones a menú dat.gui
+- rotación animada de objeto y reset.
+- arreglar toroide

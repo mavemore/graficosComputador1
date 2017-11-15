@@ -5,100 +5,16 @@
 		<title>Graficos por Computador 1</title>
 		<style>
 			body { margin: 0; }
-			canvas { max-width: 80%; 
-					 height: 100%;
+			canvas {
 					 float: right;
 					}
-			#menu { max-width: 20%;
-					float: left; 
-					font-family: "Lucida Console", monospace;
-				  }
-			.in{
-				width: 50px;
-			}
-			div{
-				margin: 8px 0px;
-			}
-			input{
-				padding: 2px 3px;
-				margin: 2px 3px;
-			}
-			button{
-				width: 35%;
-				padding: 2px;
-				margin: 2% 5%;
-			}
-			label{
-				font-weight: bold;
-			}
 		</style>
-		<script src="three.min.js"></script>
 	</head>
 	<body>
-		<div id="menu">
-			<h1>MENU</h1>
-			<div>
-				<label>Figura: </label>
-				<select id="selectFigura" onchange="cambiarFigura()">
-					<option value="cubo">Cubo</option>
-					<option value="esfera">Esfera</option>
-					<option value="piramide">Pirámide</option>
-					<option value="toroide">Toroide</option>
-					<option value="cilindro">Cilindro</option>
-					<option value="prisma">Prisma</option>
-				</select>
-			</div>
-			<div>
-				<label>Color: </label>
-				<input type="color" name="inputColor" id="inputColor" value="#33cc33" onchange="cambiarColor()">
-			</div>
-			<div> 
-				<label>Luces: </label>
-				<br>
-				<input type="checkbox" id="luz1" value="luz1" checked="" onclick="estadoLRoja()"> Luz Roja
-				<br>
-				<input type="checkbox" id="luz2" value="luz2" checked="" onclick="estadoLAzul()"> Luz Azul
-				<br>
-				<input type="checkbox" id="luz3" value="luz3" checked="" onclick="estadoLVerde()"> Luz Verde
-			</div>
-			<div>
-				<label>Trasladar Objeto: </label>
-				<br>
-  				<input class="in" type="number" id="traslacionX" placeholder="x">
-  				<input class="in" type="number" id="traslacionY" placeholder="y">
-  				<input class="in" type="number" id="traslacionZ" placeholder="z">
-  				<br>
-  				<button onclick="trasladarObjeto()">Trasladar</button>
-  				<button onclick="restaurarObjeto()">Restaurar</button>
-			</div>
-			<div>
-				<label>Rotar Objeto: </label>
-				<br>
-  				<input class="in" type="number" id="rotacionX" placeholder="x">
-  				<input class="in" type="number" id="rotacionY" placeholder="y">
-  				<input class="in" type="number" id="rotacionZ" placeholder="z">
-  				<br>
-  				<button onclick="rotarObjeto()">Rotar</button>
-  				<button onclick="restaurarRotacionObjeto()">Restaurar</button>
-			</div>
-			<div>
-				<label>Escalar objeto: </label>
-				<br>
-  				<input class="in" type="number" id="scaleX" placeholder="x" value="1" min="1">
-  				<input class="in" type="number" id="scaleY" placeholder="y" value="1" min="1">
-  				<input class="in" type="number" id="scaleZ" placeholder="z" value="1" min="1">
-  				<br>
-  				<button onclick="tamObjeto()">Escalar</button>
-  				<button onclick="restaurarTamanioObjeto()">Restaurar</button>
-			</div>
-			<div>
-				<label>Cámara: </label>
-  				<button onclick="restaurarCamara()">Restaurar</button>
-			</div>
-		</div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.js"></script>
+		<script src="three.min.js"></script>
 		<script src="three.js"></script>
 		<script src="OrbitControls.js"></script>
+		<script type="text/javascript" src="dat.gui.js"></script>
 		<script src="script.js"></script>
 	</body>
 </html>

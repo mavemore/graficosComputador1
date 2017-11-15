@@ -1,4 +1,4 @@
-var width = window.innerWidth*0.8;
+var width = window.innerWidth;
 var height =  window.innerHeight;
 
 var keyboard = {};
@@ -37,30 +37,7 @@ var cubo = new THREE.CubeGeometry( 1,1,1);
 var esfera = new THREE.SphereGeometry(0.5,32,32);
 var piramide = new THREE.CylinderGeometry(0,1,1,4,false);
 
-/*ring prism begin*/
-/*fuente: https://stackoverflow.com/questions/28460758/smooth-ring-3d-in-three-js*/
-Ring3D = function(innerRadius, outerRadius, heigth, Segments) {
-
-	var extrudeSettings = {
-		amount: heigth,
-		bevelEnabled: false,
-		curveSegments: Segments
-	};
-	var arcShape = new THREE.Shape();
-	arcShape.moveTo(outerRadius, 0);
-	arcShape.absarc(0, 0, outerRadius, 0, Math.PI * 2, false);
-
-	var holePath = new THREE.Path();
-	holePath.moveTo(innerRadius, 0);
-	holePath.absarc(0, 0, innerRadius, 0, Math.PI * 2, true);
-	arcShape.holes.push(holePath);
-
-	var geometry = new THREE.ExtrudeGeometry(arcShape, extrudeSettings);
-	return geometry;
-
-}  
-/*ring ends*/
-var toroide = new Ring3D( 0.5,1,1,32); 
+var toroide = new THREE.TorusGeometry( 0.5, 0.2, 8, 30 )
 var cilindro = new THREE.CylinderGeometry(0.5,0.5,1,32);
 
 /*prism begin*/
@@ -97,22 +74,17 @@ var prisma = new PrismGeometry( [ A, B, C ], 1 );
 //lambert material para iluminacion
 var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
 var object = new THREE.Mesh( cubo, material );
+object.position.y=0.7
 object.rotation.y = Math.PI * 45/180;
 //object.position.y += 1; 
 //object.scale.x = 3;
 scene.add(object);
 
-camera.position.y = 3;
-camera.position.z = 5;
+camera.position.y = 5;
+camera.position.z = 10;
 //camera.position.x = 3;
 camera.lookAt(object.position);
 
-//anadir skybox 
-/*var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
-var skyboxMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
-var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
- 
-scene.add(skybox);*/
 
 // anadir iluminacion
 var sphere = new THREE.SphereGeometry( 0.1, 32, 32 );
@@ -126,15 +98,15 @@ light3 = new THREE.PointLight( 0x80ff80, 3, 20);
 light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0x80ff80 } ) ) );
 scene.add( light3 );
 
-light1.position.x = 2
-light1.position.y = 1.5
+light1.position.x = 4
+light1.position.y = 3
 light1.position.z = 0
-light2.position.x = -3
-light2.position.y = -2
-light2.position.z = 1
-light3.position.x = -2
-light3.position.y = 1.5
-light3.position.z = -2
+light2.position.x = -4
+light2.position.y = 3
+light2.position.z = 4
+light3.position.x = -4
+light3.position.y = 3
+light3.position.z = -4
 //
 
 //añadir piso
@@ -145,12 +117,94 @@ var meshFloor = new THREE.Mesh(
 meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
 scene.add(meshFloor);
 
+/*MENU*/
+var options = {
+  velx: 0,
+  vely: 0,
+  forma: 'cubo',
+  stop: function() {
+    this.velx = 0;
+    this.vely = 0;
+  },
+  rotar: function(){
+  	this.velx = 0.1;
+    this.vely = 0.1;
+  },
+  reset: function() {
+    object.scale.x = 1;
+    object.scale.y = 1;
+    object.scale.z = 1;
+    this.velx = 0;
+    this.vely = 0;
+    object.rotation.x=0;
+	object.rotation.y = Math.PI * 45/180;
+	object.rotation.z=0;
+  }
+};
+
+var sceneOptions = {
+  luzRoja: true,
+  luzAzul:true,
+  luzVerde: true,
+  resetCamera: function() {
+    camera.position.z = 10;
+    camera.position.x = 0;
+    camera.position.y = 5;
+    camera.lookAt(object.position);
+  }
+};
+
+
+var gui = new dat.GUI({ autoplace: false, height: 1000 });
+
+var f1 = gui.addFolder('Objeto');
+f1.addColor(object.material, 'color').name('Color').listen();
+forma = f1.add(options, 'forma', ['cubo', 'esfera', 'piramide','toroide','cilindro','prisma']).name('Forma');
+var f1_1 = f1.addFolder('Escala');
+f1_1.add(object.scale, 'x',1,5).name('X').listen();
+f1_1.add(object.scale, 'y',1,5).listen();
+f1_1.add(object.scale, 'z',1,5).name('Z').listen();
+var f1_2 = f1.addFolder('Traslación');
+f1_2.add(object.position, 'x',-5,5).name('X').listen();
+f1_2.add(object.position, 'y',0.7,5.7).name('Y').listen();
+f1_2.add(object.position, 'z',-5,5).name('Z').listen();
+var f1_3 = f1.addFolder('Rotación');
+f1_3.add(object.rotation, 'x',0,5).name('X').listen();
+f1_3.add(object.rotation, 'y',0,5).name('Y').listen();
+f1_3.add(object.rotation, 'z',0,5).name('Z').listen();
+var f1_4 = gui.addFolder('Acciones');
+f1_4.add(options, 'stop');
+f1_4.add(options, 'rotar');
+f1_4.add(options, 'reset');
+
+var f2 = gui.addFolder('Escena');
+luzRoja = f2.add(sceneOptions, 'luzRoja');
+luzAzul = f2.add(sceneOptions, 'luzAzul');
+luzVerde = f2.add(sceneOptions, 'luzVerde');
+f2.add(sceneOptions, 'resetCamera');
+
+forma.onFinishChange(function(value) {
+  cambiarFigura(value);
+});
+
+luzRoja.onFinishChange(function(value) {
+  estadoLRoja(value);
+});
+
+luzAzul.onFinishChange(function(value) {
+  estadoLAzul(value);
+});
+
+luzVerde.onFinishChange(function(value) {
+  estadoLVerde(value);
+});
+
+
 animate();
-//renderer.render(scene, camera);
 
 
-function cambiarFigura(){
-	var figura = document.getElementById("selectFigura").value;
+function cambiarFigura(value){
+	var figura = value;
 	if (figura=='esfera'){
 		object.geometry = esfera;
 	}else if (figura=='cubo'){
@@ -164,9 +218,9 @@ function cambiarFigura(){
 	}else if (figura=='prisma'){
 		object.geometry = prisma;
 	}
-	renderer.render(scene, camera);
+	//renderer.render(scene, camera);
 }
-
+/*
 function cambiarColor(){
 	//var color = document.getElementById("selectColor").value;
 	var color = document.getElementById("inputColor").value;
@@ -177,41 +231,41 @@ function cambiarColor(){
 	//console.log(color);
 	object.material.color.setHex( color );
 	renderer.render(scene, camera);
-}
+}*/
 
-function estadoLRoja(){
-	estado = document.getElementById("luz1").checked;
+function estadoLRoja(estado){
+	//estado = document.getElementById("luz1").checked;
 	if (estado){
 		scene.add( light1 );
 	}else{
 		scene.remove( light1 );
 	}
-	renderer.render(scene, camera);
+	//renderer.render(scene, camera);
 }
 
 
-function estadoLAzul(){
-	estado = document.getElementById("luz2").checked;
+function estadoLAzul(estado){
+	//estado = document.getElementById("luz2").checked;
 	if (estado){
 		scene.add( light2 );
 	}else{
 		scene.remove( light2 );
 	}
-	renderer.render(scene, camera);
+	//renderer.render(scene, camera);
 }
 
 
-function estadoLVerde(){
-	estado = document.getElementById("luz3").checked;
+function estadoLVerde(estado){
+	//estado = document.getElementById("luz3").checked;
 	if (estado){
 		scene.add( light3 );
 	}else{
 		scene.remove( light3 );
 	}
-	renderer.render(scene, camera);
+	//renderer.render(scene, camera);
 }
 
-function trasladarObjeto(){
+/*function trasladarObjeto(){
 	trasladox = document.getElementById("traslacionX").value;
 	trasladoy = document.getElementById("traslacionY").value;
 	trasladoz = document.getElementById("traslacionZ").value;
@@ -223,7 +277,7 @@ function trasladarObjeto(){
 
 function restaurarObjeto(){
 	object.position.x=0;
-	object.position.y=0;
+	object.position.y=0.5;
 	object.position.z=0;
 	renderer.render(scene, camera);
 }
@@ -258,8 +312,8 @@ function trasladarCamara(){
 
 function restaurarCamara(){
 	camera.position.x=0;
-	camera.position.y = 3;
-	camera.position.z = 5;
+	camera.position.y = 5;
+	camera.position.z = 10;
 	camera.lookAt(object.position);
 	renderer.render(scene, camera);
 }
@@ -300,7 +354,7 @@ function restaurarTamanioObjeto(){
 	object.scale.z =1;
 
 	renderer.render(scene, camera);
-}
+}*/
 
 function animate(){
 	requestAnimationFrame(animate);
@@ -331,6 +385,9 @@ function animate(){
 	if(keyboard[39]){ // right arrow key
 		camera.rotation.y += player.turnSpeed;
 	}
+
+	object.rotation.x += options.velx;
+  	object.rotation.y += options.vely;
 	
 	renderer.render(scene, camera);
 }
