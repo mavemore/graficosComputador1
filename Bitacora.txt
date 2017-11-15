@@ -46,3 +46,12 @@
 - Cambio de opciones a menú dat.gui
 - rotación animada de objeto y reset.
 - arreglar toroide
+
+
+------------------------------------------------15/11/2017------------------------------------------------------
+
+***************
+*   mavemore  *
+***************
+- seleccion de objetos con clic y cambio con menu
+- anadir objetos

@@ -15,6 +15,7 @@ var renderer = new THREE.WebGLRenderer({
 	antialias: true
 });
 
+
 //setea el tamano de la pantalla
 renderer.setSize( width, height);
 
@@ -116,26 +117,28 @@ var meshFloor = new THREE.Mesh(
 );
 meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
 scene.add(meshFloor);
+object.name = 0;
+object.velx = 0;
+object.vely = 0;
+objetos=[object];
 
 /*MENU*/
 var options = {
-  velx: 0,
-  vely: 0,
   forma: 'cubo',
   stop: function() {
-    this.velx = 0;
-    this.vely = 0;
+    object.velx = 0;
+	object.vely = 0;
   },
   rotar: function(){
-  	this.velx = 0.1;
-    this.vely = 0.1;
+  	object.velx = 0.1;
+	object.vely = 0.1;
   },
   reset: function() {
     object.scale.x = 1;
     object.scale.y = 1;
     object.scale.z = 1;
-    this.velx = 0;
-    this.vely = 0;
+    object.velx = 0;
+	object.vely = 0;
     object.rotation.x=0;
 	object.rotation.y = Math.PI * 45/180;
 	object.rotation.z=0;
@@ -151,27 +154,97 @@ var sceneOptions = {
     camera.position.x = 0;
     camera.position.y = 5;
     camera.lookAt(object.position);
+  },
+  anadirCubo: function(){
+  	//lambert material para iluminacion
+	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var object = new THREE.Mesh( cubo, material );
+	object.position.y=1*(objetos.length+1);
+	object.rotation.y = Math.PI * 45/180;
+	object.name=objetos.length-1;
+	object.velx = 0;
+	object.vely = 0;
+	objetos.push(object);
+	scene.add(object);
+  },
+  anadirEsfera: function(){
+  	//lambert material para iluminacion
+	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var object = new THREE.Mesh( esfera, material );
+	object.position.y=1*(objetos.length+1);
+	object.rotation.y = Math.PI * 45/180;
+	object.name=objetos.length-1;
+	object.velx = 0;
+	object.vely = 0;
+	objetos.push(object);
+	scene.add(object);
+  },
+  anadirPrisma: function(){
+  	//lambert material para iluminacion
+	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var object = new THREE.Mesh( prisma, material );
+	object.position.y=1*(objetos.length+1);
+	object.rotation.y = Math.PI * 45/180;
+	object.name=objetos.length-1;
+	object.velx = 0;
+	object.vely = 0;
+	objetos.push(object);
+	scene.add(object);
+  },
+  anadirPiramide: function(){
+  	//lambert material para iluminacion
+	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var object = new THREE.Mesh( piramide, material );
+	object.position.y=1*(objetos.length+1);
+	object.rotation.y = Math.PI * 45/180;
+	object.name=objetos.length-1;
+	object.velx = 0;
+	object.vely = 0;
+	objetos.push(object);
+	scene.add(object);
+  },
+  anadirToroide: function(){
+  	//lambert material para iluminacion
+	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var object = new THREE.Mesh( toroide, material );
+	object.position.y=1*(objetos.length+1);
+	object.rotation.y = Math.PI * 45/180;
+	object.name=objetos.length-1;
+	object.velx = 0;
+	object.vely = 0;
+	objetos.push(object);
+	scene.add(object);
+  },
+  anadirCilindro: function(){
+  	//lambert material para iluminacion
+	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var object = new THREE.Mesh( cilindro, material );
+	object.position.y=1*(objetos.length+1);
+	object.rotation.y = Math.PI * 45/180;
+	object.name=objetos.length-1;
+	object.velx = 0;
+	object.vely = 0;
+	objetos.push(object);
+	scene.add(object);
   }
 };
 
 
 var gui = new dat.GUI({ autoplace: false, height: 1000 });
-
 var f1 = gui.addFolder('Objeto');
-f1.addColor(object.material, 'color').name('Color').listen();
-forma = f1.add(options, 'forma', ['cubo', 'esfera', 'piramide','toroide','cilindro','prisma']).name('Forma');
+nuevoColor = f1.addColor(object.material, 'color').name('Color').listen();
 var f1_1 = f1.addFolder('Escala');
-f1_1.add(object.scale, 'x',1,5).name('X').listen();
-f1_1.add(object.scale, 'y',1,5).listen();
-f1_1.add(object.scale, 'z',1,5).name('Z').listen();
+scalex = f1_1.add(object.scale, 'x',1,5).name('X').listen();
+scaley = f1_1.add(object.scale, 'y',1,5).listen();
+scalez = f1_1.add(object.scale, 'z',1,5).name('Z').listen();
 var f1_2 = f1.addFolder('Traslación');
-f1_2.add(object.position, 'x',-5,5).name('X').listen();
-f1_2.add(object.position, 'y',0.7,5.7).name('Y').listen();
-f1_2.add(object.position, 'z',-5,5).name('Z').listen();
+trasx= f1_2.add(object.position, 'x',-5,5).name('X').listen();
+trasy= f1_2.add(object.position, 'y',0.7,5.7).name('Y').listen();
+trasz= f1_2.add(object.position, 'z',-5,5).name('Z').listen();
 var f1_3 = f1.addFolder('Rotación');
-f1_3.add(object.rotation, 'x',0,5).name('X').listen();
-f1_3.add(object.rotation, 'y',0,5).name('Y').listen();
-f1_3.add(object.rotation, 'z',0,5).name('Z').listen();
+rotx=f1_3.add(object.rotation, 'x',0,5).name('X').listen();
+roty=f1_3.add(object.rotation, 'y',0,5).name('Y').listen();
+rotz=f1_3.add(object.rotation, 'z',0,5).name('Z').listen();
 var f1_4 = gui.addFolder('Acciones');
 f1_4.add(options, 'stop');
 f1_4.add(options, 'rotar');
@@ -182,10 +255,12 @@ luzRoja = f2.add(sceneOptions, 'luzRoja');
 luzAzul = f2.add(sceneOptions, 'luzAzul');
 luzVerde = f2.add(sceneOptions, 'luzVerde');
 f2.add(sceneOptions, 'resetCamera');
-
-forma.onFinishChange(function(value) {
-  cambiarFigura(value);
-});
+f2.add(sceneOptions, 'anadirCubo');
+f2.add(sceneOptions, 'anadirCilindro');
+f2.add(sceneOptions, 'anadirToroide');
+f2.add(sceneOptions, 'anadirPiramide');
+f2.add(sceneOptions, 'anadirPrisma');
+f2.add(sceneOptions, 'anadirEsfera');
 
 luzRoja.onFinishChange(function(value) {
   estadoLRoja(value);
@@ -200,10 +275,45 @@ luzVerde.onFinishChange(function(value) {
 });
 
 
+/*clickable objects*/
+raycaster = new THREE.Raycaster();
+mouse = new THREE.Vector2();
+
+document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+
+
 animate();
+/*Three.js documentation: three.js/examples/canvas_interactive_cubes.html*/
+function onDocumentTouchStart( event ) {
+	event.preventDefault();
+	event.clientX = event.touches[0].clientX;
+	event.clientY = event.touches[0].clientY;
+	onDocumentMouseDown( event );
+}
+function onDocumentMouseDown( event ) {
+	event.preventDefault();
+	mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+	raycaster.setFromCamera( mouse, camera );
+	var intersects = raycaster.intersectObjects( objetos );
+	if ( intersects.length > 0 ) {
+		object = intersects[ 0 ].object;
+		nuevoColor.object = object.material;
+		scalex.object = object.scale;
+		scaley.object = object.scale;
+		scalez.object = object.scale;
+		trasx.object= object.position;
+		trasy.object= object.position;
+		trasz.object= object.position;
+		rotx.object=object.rotation;
+		roty.object=object.rotation;
+		rotz.object=object.rotation;
+	}
+}
 
 
-function cambiarFigura(value){
+/*function cambiarFigura(value){
 	var figura = value;
 	if (figura=='esfera'){
 		object.geometry = esfera;
@@ -220,17 +330,17 @@ function cambiarFigura(value){
 	}
 	//renderer.render(scene, camera);
 }
-/*
-function cambiarColor(){
+
+function cambiarColor(value, object){
 	//var color = document.getElementById("selectColor").value;
-	var color = document.getElementById("inputColor").value;
+	var color = value;
 	//console.log(color);
 	color = color.substr(1,6);
 	//console.log(color);
 	color = "0x" + color;
 	//console.log(color);
 	object.material.color.setHex( color );
-	renderer.render(scene, camera);
+	//renderer.render(scene, camera);
 }*/
 
 function estadoLRoja(estado){
@@ -386,8 +496,11 @@ function animate(){
 		camera.rotation.y += player.turnSpeed;
 	}
 
-	object.rotation.x += options.velx;
-  	object.rotation.y += options.vely;
+	for ( var i in objetos ) {
+		objetos[i].rotation.x += objetos[i].velx;
+  		objetos[i].rotation.y += objetos[i].vely;
+	}
+	
 	
 	renderer.render(scene, camera);
 }
