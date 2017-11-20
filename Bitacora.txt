@@ -55,3 +55,10 @@
 ***************
 - seleccion de objetos con clic y cambio con menu
 - anadir objetos
+
+------------------------------------------------19/11/2017------------------------------------------------------
+
+***************
+*   mavemore  *
+***************
+- seleccion de color de objetos

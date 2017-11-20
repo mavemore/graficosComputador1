@@ -73,7 +73,7 @@ var C = new THREE.Vector2( 0, 1 );
 var prisma = new PrismGeometry( [ A, B, C ], 1 );
 
 //lambert material para iluminacion
-var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+var material = new THREE.MeshLambertMaterial( { color: "#ffae23"} );
 var object = new THREE.Mesh( cubo, material );
 object.position.y=0.7
 object.rotation.y = Math.PI * 45/180;
@@ -89,14 +89,14 @@ camera.lookAt(object.position);
 
 // anadir iluminacion
 var sphere = new THREE.SphereGeometry( 0.1, 32, 32 );
-light1 = new THREE.PointLight( 0xff0040, 3, 20 );
-light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
+light1 = new THREE.PointLight( 0xffffff, 3, 20 );
+light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
 scene.add( light1 );
-light2 = new THREE.PointLight( 0x0040ff, 3, 20 );
-light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0x0040ff } ) ) );
+light2 = new THREE.PointLight( 0xffffff, 3, 20 );
+light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
 scene.add( light2 );
-light3 = new THREE.PointLight( 0x80ff80, 3, 20);
-light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0x80ff80 } ) ) );
+light3 = new THREE.PointLight( 0xffffff, 3, 20);
+light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
 scene.add( light3 );
 
 light1.position.x = 4
@@ -125,6 +125,7 @@ objetos=[object];
 /*MENU*/
 var options = {
   forma: 'cubo',
+  color: 0xff0040,
   stop: function() {
     object.velx = 0;
 	object.vely = 0;
@@ -229,7 +230,6 @@ var sceneOptions = {
   }
 };
 
-
 var gui = new dat.GUI({ autoplace: false, height: 1000 });
 var f1 = gui.addFolder('Objeto');
 nuevoColor = f1.addColor(object.material, 'color').name('Color').listen();
@@ -251,9 +251,9 @@ f1_4.add(options, 'rotar');
 f1_4.add(options, 'reset');
 
 var f2 = gui.addFolder('Escena');
-luzRoja = f2.add(sceneOptions, 'luzRoja');
-luzAzul = f2.add(sceneOptions, 'luzAzul');
-luzVerde = f2.add(sceneOptions, 'luzVerde');
+luzRoja = f2.add(sceneOptions, 'luzRoja').name('Luz1');
+luzAzul = f2.add(sceneOptions, 'luzAzul').name('Luz2');
+luzVerde = f2.add(sceneOptions, 'luzVerde').name('Luz3');
 f2.add(sceneOptions, 'resetCamera');
 f2.add(sceneOptions, 'anadirCubo');
 f2.add(sceneOptions, 'anadirCilindro');
@@ -261,6 +261,10 @@ f2.add(sceneOptions, 'anadirToroide');
 f2.add(sceneOptions, 'anadirPiramide');
 f2.add(sceneOptions, 'anadirPrisma');
 f2.add(sceneOptions, 'anadirEsfera');
+
+nuevoColor.onChange(function(value){
+	cambiarColor(value);
+});
 
 luzRoja.onFinishChange(function(value) {
   estadoLRoja(value);
@@ -329,19 +333,21 @@ function onDocumentMouseDown( event ) {
 		object.geometry = prisma;
 	}
 	//renderer.render(scene, camera);
-}
-
-function cambiarColor(value, object){
-	//var color = document.getElementById("selectColor").value;
-	var color = value;
-	//console.log(color);
-	color = color.substr(1,6);
-	//console.log(color);
-	color = "0x" + color;
-	//console.log(color);
-	object.material.color.setHex( color );
-	//renderer.render(scene, camera);
 }*/
+
+function cambiarColor(value){
+	//var color = document.getElementById("selectColor").value;
+	//var color = value;
+	//console.log(color);
+	//color = color.substr(1,6);
+	//console.log(color);
+	//color = "0x" + color;
+     //create a Color
+    color = "rgb(" +Math.floor(value.r).toString()+","+Math.floor(value.g).toString()+","+Math.floor(value.b).toString()+")";
+    //var colorObject = new THREE.Color(  ) ;
+      //set the color in the object
+    object.material.color = new THREE.Color(color);
+}
 
 function estadoLRoja(estado){
 	//estado = document.getElementById("luz1").checked;
@@ -497,7 +503,7 @@ function animate(){
 	}
 
 	for ( var i in objetos ) {
-		objetos[i].rotation.x += objetos[i].velx;
+		//objetos[i].rotation.x += objetos[i].velx;
   		objetos[i].rotation.y += objetos[i].vely;
 	}
 	
