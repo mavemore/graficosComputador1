@@ -78,11 +78,13 @@ var prisma = new PrismGeometry( [ A, B, C ], 1 );
 /*prism end*/
 
 //material con que se crean objetos. se usa lambert material para iluminacion
-var material = new THREE.MeshLambertMaterial( { color: "#ffae23"} );
+var material = new THREE.MeshPhongMaterial( { color: "#ffae23"} );
 //se crea objeto con su geometria y material y se añade a escena
 var object = new THREE.Mesh( cubo, material );
 object.position.y=0.7
 object.rotation.y = Math.PI * 45/180;
+object.receiveShadow = true;
+object.castShadow = true;
 scene.add(object);
 //se posiciona la camara y se apunta al objeto
 camera.position.y = 5;
@@ -92,33 +94,36 @@ camera.lookAt(object.position);
 
 // anadir iluminacion
 var sphere = new THREE.SphereGeometry( 0.1, 32, 32 );
-light1 = new THREE.PointLight( 0xffffff, 3, 20 );
+light1 = new THREE.PointLight( 0xffffff, 1, 20 );
+light1.castShadow = true;
+light1.shadow.camera.near = 0.1;
+light1.shadow.camera.far = 25;
 light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
 scene.add( light1 );
-light2 = new THREE.PointLight( 0xffffff, 3, 20 );
+light2 = new THREE.PointLight( 0xffffff, 1, 20 );
+light2.castShadow = true;
+light2.shadow.camera.near = 0.1;
+light2.shadow.camera.far = 25;
 light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
 scene.add( light2 );
-light3 = new THREE.PointLight( 0xffffff, 3, 20);
+light3 = new THREE.PointLight( 0xffffff, 1, 20);
+light3.castShadow = true;
+light3.shadow.camera.near = 0.1;
+light3.shadow.camera.far = 25;
 light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
 scene.add( light3 );
 
-light1.position.x = 4
-light1.position.y = 3
-light1.position.z = 0
-light2.position.x = -4
-light2.position.y = 3
-light2.position.z = 4
-light3.position.x = -4
-light3.position.y = 3
-light3.position.z = -4
-//
+light1.position.set(4,3,0);
+light2.position.set(-4,3,4);
+light3.position.set(-4,3,-4);
 
 //añadir piso
 var meshFloor = new THREE.Mesh(
-	new THREE.PlaneGeometry(10,10, 10,10),
-	new THREE.MeshBasicMaterial({color:0xffffff, wireframe: true})
+	new THREE.PlaneGeometry(15,15, 10,10),
+	new THREE.MeshPhongMaterial({color:0xffffff, wireframe: false})
 );
 meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
+meshFloor.receiveShadow = true;
 scene.add(meshFloor);
 
 //se inicializa variables objetos, se añade primer objeto a la lista de objetos
@@ -169,78 +174,90 @@ var sceneOptions = {
   //Añade cubo a la escena
   anadirCubo: function(){
   	//lambert material para iluminacion
-	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var material = new THREE.MeshPhongMaterial( { color: 0x33cc33} );
 	var object = new THREE.Mesh( cubo, material );
 	object.position.y=1*(objetos.length+1);
 	object.rotation.y = Math.PI * 45/180;
 	object.name=objetos.length-1;
 	object.velx = 0;
 	object.vely = 0;
+	object.receiveShadow = true;
+	object.castShadow = true;
 	objetos.push(object);
 	scene.add(object);
   },
   //Añade esfera a la escena
   anadirEsfera: function(){
   	//lambert material para iluminacion
-	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var material = new THREE.MeshPhongMaterial( { color: 0x33cc33} );
 	var object = new THREE.Mesh( esfera, material );
 	object.position.y=1*(objetos.length+1);
 	object.rotation.y = Math.PI * 45/180;
 	object.name=objetos.length-1;
 	object.velx = 0;
 	object.vely = 0;
+	object.receiveShadow = true;
+	object.castShadow = true;
 	objetos.push(object);
 	scene.add(object);
   },
   //añade prisma a la escena
   anadirPrisma: function(){
   	//lambert material para iluminacion
-	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var material = new THREE.MeshPhongMaterial( { color: 0x33cc33} );
 	var object = new THREE.Mesh( prisma, material );
 	object.position.y=1*(objetos.length+1);
 	object.rotation.y = Math.PI * 45/180;
 	object.name=objetos.length-1;
 	object.velx = 0;
 	object.vely = 0;
+	object.receiveShadow = true;
+	object.castShadow = true;
 	objetos.push(object);
 	scene.add(object);
   },
   //añade piramide a la escena
   anadirPiramide: function(){
   	//lambert material para iluminacion
-	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var material = new THREE.MeshPhongMaterial( { color: 0x33cc33} );
 	var object = new THREE.Mesh( piramide, material );
 	object.position.y=1*(objetos.length+1);
 	object.rotation.y = Math.PI * 45/180;
 	object.name=objetos.length-1;
 	object.velx = 0;
 	object.vely = 0;
+	object.receiveShadow = true;
+	object.castShadow = true;
 	objetos.push(object);
 	scene.add(object);
   },
   //añade toroide a la escena
   anadirToroide: function(){
   	//lambert material para iluminacion
-	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var material = new THREE.MeshPhongMaterial( { color: 0x33cc33} );
 	var object = new THREE.Mesh( toroide, material );
 	object.position.y=1*(objetos.length+1);
 	object.rotation.y = Math.PI * 45/180;
 	object.name=objetos.length-1;
 	object.velx = 0;
 	object.vely = 0;
+	object.receiveShadow = true;
+	object.castShadow = true;
 	objetos.push(object);
 	scene.add(object);
   },
   //añade cilindro a la escena
   anadirCilindro: function(){
   	//lambert material para iluminacion
-	var material = new THREE.MeshLambertMaterial( { color: 0x33cc33} );
+	var material = new THREE.MeshPhongMaterial( { color: 0x33cc33} );
 	var object = new THREE.Mesh( cilindro, material );
 	object.position.y=1*(objetos.length+1);
 	object.rotation.y = Math.PI * 45/180;
 	object.name=objetos.length-1;
 	object.velx = 0;
 	object.vely = 0;
+	object.receiveShadow = true;
+	object.castShadow = true;
 	objetos.push(object);
 	scene.add(object);
   }
@@ -304,6 +321,9 @@ mouse = new THREE.Vector2();
 document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 
+// Enable Shadows in the Renderer
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.BasicShadowMap;
 
 animate();
 /*permite seleccionar un objeto con un click sobre el objeto*/

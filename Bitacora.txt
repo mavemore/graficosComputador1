@@ -62,3 +62,12 @@
 *   mavemore  *
 ***************
 - seleccion de color de objetos
+
+------------------------------------------------21/11/2017------------------------------------------------------
+***************
+*   odmoreno  *
+***************
+
+- Cambio de fondo de la superficie
+- Habilitación de sombras para todas las superficies, los objetos del escenario reciben y proyectan sombras sombras
+- luces del escenario transmiten sombras y permiten hasta que rango. 
