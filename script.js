@@ -156,6 +156,18 @@ var options = {
     object.rotation.x=0;
 	object.rotation.y = Math.PI * 45/180;
 	object.rotation.z=0;
+  },
+  //Eliminar objeto del escenario y del arreglo de objetos
+  eliminar: function(){ 
+	for(i = 0; i <= objetos.length ; i++){
+		//console.log(objetos[i])
+		if(object.uuid == objetos[i].uuid){
+			//console.log(object.uuid)
+			//console.log(objetos[i].uuid)
+			objetos.splice(i,1);
+			scene.remove(object);
+		}
+	}
   }
 };
 /*MENU DE ESCENA*/
@@ -260,7 +272,8 @@ var sceneOptions = {
 	object.castShadow = true;
 	objetos.push(object);
 	scene.add(object);
-  }
+  },
+
 };
 
 /*Se crea el menu de objetos y escena*/
@@ -283,6 +296,7 @@ var f1_4 = gui.addFolder('Acciones');
 f1_4.add(options, 'stop');
 f1_4.add(options, 'rotar');
 f1_4.add(options, 'reset');
+f1_4.add(options, 'eliminar');
 
 var f2 = gui.addFolder('Escena');
 luzRoja = f2.add(sceneOptions, 'luzRoja').name('Luz1');
