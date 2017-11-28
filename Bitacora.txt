@@ -71,3 +71,10 @@
 - Cambio de fondo de la superficie
 - Habilitación de sombras para todas las superficies, los objetos del escenario reciben y proyectan sombras sombras
 - luces del escenario transmiten sombras y permiten hasta que rango. 
+
+------------------------------------------------28/11/2017------------------------------------------------------
+***************
+*   odmoreno  *
+***************
+
+- Eliminar objetos del escenario y del arreglo de objetos, dar click en el objeto y remover
