@@ -339,6 +339,11 @@ document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.BasicShadowMap;
 
+// Drag objects.
+var dragControls = new THREE.DragControls( objetos, camera, renderer.domElement );
+dragControls.addEventListener( 'dragstart', function ( event ) { controls.enabled = false; } );
+dragControls.addEventListener( 'dragend', function ( event ) { controls.enabled = true; } );
+
 animate();
 /*permite seleccionar un objeto con un click sobre el objeto*/
 /*Three.js documentation: three.js/examples/canvas_interactive_cubes.html*/
