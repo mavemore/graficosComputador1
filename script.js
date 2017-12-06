@@ -335,11 +335,12 @@ mouse = new THREE.Vector2();
 document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 document.addEventListener( 'touchstart', onDocumentTouchStart, false );
 
-// Enable Shadows in the Renderer
+// Se habilita la sombra para renderizar
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.BasicShadowMap;
 
 // Drag objects.
+// Permite mover los objetos con el mouse a traves de eventos ( seleccionar con click derecho)
 var dragControls = new THREE.DragControls( objetos, camera, renderer.domElement );
 dragControls.addEventListener( 'dragstart', function ( event ) { controls.enabled = false; } );
 dragControls.addEventListener( 'dragend', function ( event ) { controls.enabled = true; } );

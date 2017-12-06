@@ -78,3 +78,10 @@
 ***************
 
 - Eliminar objetos del escenario y del arreglo de objetos, dar click en el objeto y remover
+
+------------------------------------------------05/12/2017------------------------------------------------------
+***************
+*   odmoreno  *
+***************
+
+- Drag and drop de los objetos del escenario
