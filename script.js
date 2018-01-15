@@ -118,13 +118,22 @@ light2.position.set(-4,3,4);
 light3.position.set(-4,3,-4);
 
 //añadir piso
-var meshFloor = new THREE.Mesh(
-	new THREE.PlaneGeometry(15,15, 10,10),
-	new THREE.MeshPhongMaterial({color:0xffffff, wireframe: false})
-);
-meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
-meshFloor.receiveShadow = true;
-scene.add(meshFloor);
+var texture = new THREE.TextureLoader().load( "checkerboard.png", function(t) {
+	t.wrapS = THREE.RepeatWrapping;
+	t.wrapT = THREE.RepeatWrapping;
+	t.repeat.set( 4, 4 );
+	var meshFloor = new THREE.Mesh(
+		new THREE.PlaneGeometry(15,15, 10,10),
+		//new THREE.MeshPhongMaterial({color:0xffffff, wireframe: false})
+		new THREE.MeshPhongMaterial({map: t}),
+	);
+	meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
+	meshFloor.receiveShadow = true;
+
+	scene.add(meshFloor);
+	
+});
+
 
 //se inicializa variables objetos, se añade primer objeto a la lista de objetos
 object.name = 0;
@@ -380,6 +389,18 @@ function onDocumentMouseDown( event ) {
 function cambiarColor(value){
     object.material.color = new THREE.Color(value);
 }
+
+function changeTexture(){
+	var texture = new THREE.TextureLoader().load( "red.png", function(t) {
+		t.wrapS = THREE.RepeatWrapping;
+		t.wrapT = THREE.RepeatWrapping;
+		t.repeat.set( 4, 4 );
+		object.material = new THREE.MeshPhongMaterial({map: t});
+		console.log(object.material.map);
+		//object.material.map =  t;
+	});
+}
+
 //prende y apaga la luz 1
 function estadoLRoja(estado){
 	if (estado){
@@ -453,3 +474,5 @@ function keyUp(event){
 }
 window.addEventListener('keydown', keyDown);
 window.addEventListener('keyup', keyUp);
+
+
