@@ -14,6 +14,8 @@ var renderer = new THREE.WebGLRenderer({
 	antialias: true
 });
 
+var crate, crateTexture, crateNormalMap, crateBumpMap;
+let Crate =[];
 
 //setea el tamano de la pantalla
 renderer.setSize( width, height);
@@ -118,13 +120,44 @@ light2.position.set(-4,3,4);
 light3.position.set(-4,3,-4);
 
 //añadir piso
-var meshFloor = new THREE.Mesh(
-	new THREE.PlaneGeometry(15,15, 10,10),
-	new THREE.MeshPhongMaterial({color:0xffffff, wireframe: false})
-);
-meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
-meshFloor.receiveShadow = true;
-scene.add(meshFloor);
+var texture = new THREE.TextureLoader().load( "http://res.cloudinary.com/dl9owe03r/image/upload/v1516171775/concrete-1024_doudz7.jpg", function(t) {
+	t.wrapS = THREE.RepeatWrapping;
+	t.wrapT = THREE.RepeatWrapping;
+	t.repeat.set( 4, 4 );
+	var meshFloor = new THREE.Mesh(
+		new THREE.PlaneGeometry(15,15, 10,10),
+		//new THREE.MeshPhongMaterial({color:0xffffff, wireframe: false})
+		new THREE.MeshPhongMaterial({map: t}),
+	);
+	meshFloor.rotation.x -= Math.PI / 2; // Rotate the floor 90 degrees
+	meshFloor.receiveShadow = true;
+
+	scene.add(meshFloor);
+	
+});
+
+
+// Texture Loading
+var textureLoader = new THREE.TextureLoader();
+crateTexture = textureLoader.load('http://res.cloudinary.com/dl9owe03r/image/upload/v1516029366/crate0_diffuse_xxdl6x.png');
+crateBumpMap = textureLoader.load('http://res.cloudinary.com/dl9owe03r/image/upload/v1516029348/crate0_bump_ec6uhi.png');
+crateNormalMap = textureLoader.load('http://res.cloudinary.com/dl9owe03r/image/upload/v1516029371/crate0_normal_tcuvmo.png');
+	
+// Create mesh with these textures
+crate = new THREE.Mesh(
+	new THREE.BoxGeometry(1,1,1),
+	new THREE.MeshPhongMaterial({
+			color:0xffffff,
+			map:crateTexture,
+			bumpMap:crateBumpMap,
+			normalMap:crateNormalMap
+		}),
+	);
+	Crate=[crate]
+	scene.add(crate);
+	crate.position.set(2.5, 3/2, 2.5);
+	crate.receiveShadow = true;
+	crate.castShadow = true;
 
 //se inicializa variables objetos, se añade primer objeto a la lista de objetos
 object.name = 0;
@@ -345,6 +378,10 @@ var dragControls = new THREE.DragControls( objetos, camera, renderer.domElement 
 dragControls.addEventListener( 'dragstart', function ( event ) { controls.enabled = false; } );
 dragControls.addEventListener( 'dragend', function ( event ) { controls.enabled = true; } );
 
+var dragControls2 = new THREE.DragControls( Crate, camera, renderer.domElement );
+dragControls2.addEventListener( 'dragstart', function ( event ) { controls.enabled = false; } );
+dragControls2.addEventListener( 'dragend', function ( event ) { controls.enabled = true; } );
+
 animate();
 /*permite seleccionar un objeto con un click sobre el objeto*/
 /*Three.js documentation: three.js/examples/canvas_interactive_cubes.html*/
@@ -380,6 +417,18 @@ function onDocumentMouseDown( event ) {
 function cambiarColor(value){
     object.material.color = new THREE.Color(value);
 }
+
+function changeTexture(){
+	var texture = new THREE.TextureLoader().load( "red.png", function(t) {
+		t.wrapS = THREE.RepeatWrapping;
+		t.wrapT = THREE.RepeatWrapping;
+		t.repeat.set( 4, 4 );
+		object.material = new THREE.MeshPhongMaterial({map: t});
+		console.log(object.material.map);
+		//object.material.map =  t;
+	});
+}
+
 //prende y apaga la luz 1
 function estadoLRoja(estado){
 	if (estado){
@@ -453,3 +502,5 @@ function keyUp(event){
 }
 window.addEventListener('keydown', keyDown);
 window.addEventListener('keyup', keyUp);
+
+
