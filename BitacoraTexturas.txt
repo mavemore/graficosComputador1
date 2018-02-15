@@ -39,4 +39,4 @@ Temas discutidos:
 
 Trabajo realizado:
 - Lograr que se puedan hacer acciones con objetos con textura
-- crear objeto con textura.
+- añadir texturas a objetos en escena.
