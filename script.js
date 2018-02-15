@@ -200,6 +200,10 @@ var options = {
     object.receiveShadow = true;
 	object.castShadow = true;
   },
+  //quitar textura de objeto seleccionado a caja de madera
+  quitarTextura: function() {
+    object.material = material;
+  },
 };
 /*MENU DE ESCENA*/
 var sceneOptions = {
@@ -329,6 +333,7 @@ f1_4.add(options, 'rotar');
 f1_4.add(options, 'reset');
 f1_4.add(options, 'eliminar');
 f1_4.add(options, 'anadirTexturaCaja');
+f1_4.add(options, 'quitarTextura');
 
 var f2 = gui.addFolder('Escena');
 luzRoja = f2.add(sceneOptions, 'luzRoja').name('Luz1');
