@@ -142,22 +142,14 @@ var textureLoader = new THREE.TextureLoader();
 crateTexture = textureLoader.load('http://res.cloudinary.com/dl9owe03r/image/upload/v1516029366/crate0_diffuse_xxdl6x.png');
 crateBumpMap = textureLoader.load('http://res.cloudinary.com/dl9owe03r/image/upload/v1516029348/crate0_bump_ec6uhi.png');
 crateNormalMap = textureLoader.load('http://res.cloudinary.com/dl9owe03r/image/upload/v1516029371/crate0_normal_tcuvmo.png');
-	
-// Create mesh with these textures
-crate = new THREE.Mesh(
-	new THREE.BoxGeometry(1,1,1),
-	new THREE.MeshPhongMaterial({
+
+//Crear textura de caja de madera
+textureMaterial = new THREE.MeshPhongMaterial({
 			color:0xffffff,
 			map:crateTexture,
 			bumpMap:crateBumpMap,
 			normalMap:crateNormalMap
-		}),
-	);
-	Crate=[crate]
-	scene.add(crate);
-	crate.position.set(2.5, 3/2, 2.5);
-	crate.receiveShadow = true;
-	crate.castShadow = true;
+		});
 
 //se inicializa variables objetos, se añade primer objeto a la lista de objetos
 object.name = 0;
@@ -201,7 +193,13 @@ var options = {
 			scene.remove(object);
 		}
 	}
-  }
+  },
+  //cambiar textura de objeto seleccionado a caja de madera
+  anadirTexturaCaja: function() {
+    object.material = textureMaterial;
+    object.receiveShadow = true;
+	object.castShadow = true;
+  },
 };
 /*MENU DE ESCENA*/
 var sceneOptions = {
@@ -330,6 +328,7 @@ f1_4.add(options, 'stop');
 f1_4.add(options, 'rotar');
 f1_4.add(options, 'reset');
 f1_4.add(options, 'eliminar');
+f1_4.add(options, 'anadirTexturaCaja');
 
 var f2 = gui.addFolder('Escena');
 luzRoja = f2.add(sceneOptions, 'luzRoja').name('Luz1');
