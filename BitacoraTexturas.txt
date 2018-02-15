@@ -1,0 +1,42 @@
+INTEGRANTES:
+- Juan Alvarado
+- Verónica Moreira
+- Óscar Moreno
+
+BITÁCORA:
+
+--------------------------------------------Reunión 1-----------------------------------------------------------
+Fecha: 8 de Enero, 2018
+
+Temas discutidos:
+- Incluir texturas a la figuras del proyecto
+
+Trabajo realizado:
+- Investigar como añadir texturas a objetos en la escena.
+- Verificar que los objetos en la escena se puedan mover.
+
+Problemas encontrados:
+- No se puede mover los objetos con texturas.
+- Ocurrían errores con las imágenes de las texturas
+
+--------------------------------------------Reunión 2------------------------------------------------------------
+Fecha: 15 de Enero, 2018
+
+Temas discutidos:
+- Lograr movilidad de objetos con textura
+
+Trabajo realizado:
+- Lograr que se pueda hacer el drag de los objetos con textura
+
+Problemas encontrados:
+- No se pueden realizar las animaciones.
+
+--------------------------------------------Reunión 3------------------------------------------------------------
+Fecha: 22 de Enero, 2018
+
+Temas discutidos:
+- Lograr acciones de objetos con textura.
+
+Trabajo realizado:
+- Lograr que se puedan hacer acciones con objetos con textura
+- crear objeto con textura.
