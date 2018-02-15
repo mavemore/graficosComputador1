@@ -332,8 +332,9 @@ f1_4.add(options, 'stop');
 f1_4.add(options, 'rotar');
 f1_4.add(options, 'reset');
 f1_4.add(options, 'eliminar');
-f1_4.add(options, 'anadirTexturaCaja');
-f1_4.add(options, 'quitarTextura');
+var f1_5 = gui.addFolder('Texturas');
+f1_5.add(options, 'anadirTexturaCaja');
+f1_5.add(options, 'quitarTextura');
 
 var f2 = gui.addFolder('Escena');
 luzRoja = f2.add(sceneOptions, 'luzRoja').name('Luz1');
@@ -422,14 +423,12 @@ function cambiarColor(value){
     object.material.color = new THREE.Color(value);
 }
 
-function changeTexture(){
+function changeTextureRed(){
 	var texture = new THREE.TextureLoader().load( "red.png", function(t) {
 		t.wrapS = THREE.RepeatWrapping;
 		t.wrapT = THREE.RepeatWrapping;
 		t.repeat.set( 4, 4 );
 		object.material = new THREE.MeshPhongMaterial({map: t});
-		console.log(object.material.map);
-		//object.material.map =  t;
 	});
 }
 
