@@ -1,0 +1,21 @@
+INTEGRANTES:
+- Juan Alvarado
+- Verónica Moreira
+- Óscar Moreno
+
+BITÁCORA:
+
+--------------------------------------------Reunión 1-----------------------------------------------------------
+Fecha: 12 de Febrero 2018
+
+Temas discutidos:
+- Creación del proyecto POVRAY
+
+Trabajo realizado:
+- Investigar como crear escena en POVRAY.
+- Añadir fondo de paisaje.
+- Añadir 3 objetos: uno sólido, uno metálico (refleja paisaje) y uno de vidrio (transparente).
+- Animar escena para que se roten objetos.
+
+Problemas encontrados:
+- Los frames no son lo suficiente para completar animación de rotación.
