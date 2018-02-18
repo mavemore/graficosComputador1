@@ -195,8 +195,33 @@ var options = {
 	}
   },
   //cambiar textura de objeto seleccionado a caja de madera
-  anadirTexturaCaja: function() {
+  anadirTextura1: function() {
     object.material = textureMaterial;
+    object.receiveShadow = true;
+	object.castShadow = true;
+  },
+  añadirTextura2: function(){
+	  var texture = new THREE.TextureLoader().load('http://res.cloudinary.com/dl9owe03r/image/upload/v1518745266/cratetex_o6jsxy.png');
+		textureMaterial2 = new THREE.MeshPhongMaterial({
+			color:0xffffff,
+			map:texture,
+		});	
+	  object.material = textureMaterial2;
+    	object.receiveShadow = true;
+		object.castShadow = true;	
+  },
+  añadirTextura3: function(){
+	var texture = new THREE.TextureLoader().load('http://res.cloudinary.com/dl9owe03r/image/upload/v1518746289/set3_example_1_wflrfv.png');
+	//var texture2 = new THREE.TextureLoader().load('http://res.cloudinary.com/dl9owe03r/image/upload/v1518746302/set3_example_4_savwie.png');
+	//var texture3 = new THREE.TextureLoader().load('http://res.cloudinary.com/dl9owe03r/image/upload/v1518746302/set3_example_3_gehreh.png');
+
+	textureMaterial3 = new THREE.MeshPhongMaterial({
+		color:0xffffff,
+		map:texture,
+		//bumpMap:texture2,
+		//normalMap:texture3
+	});	
+	object.material = textureMaterial3;
     object.receiveShadow = true;
 	object.castShadow = true;
   },
@@ -333,7 +358,9 @@ f1_4.add(options, 'rotar');
 f1_4.add(options, 'reset');
 f1_4.add(options, 'eliminar');
 var f1_5 = gui.addFolder('Texturas');
-f1_5.add(options, 'anadirTexturaCaja');
+f1_5.add(options, 'anadirTextura1');
+f1_5.add(options, 'añadirTextura2')
+f1_5.add(options, 'añadirTextura3')
 f1_5.add(options, 'quitarTextura');
 
 var f2 = gui.addFolder('Escena');
